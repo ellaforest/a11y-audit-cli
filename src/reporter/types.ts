@@ -1,41 +1,40 @@
-export type ReportFormat = 'json' | 'csv' | 'html';
-
-export interface ViolationSummary {
-  url: string;
-  totalViolations: number;
-  criticalCount: number;
-  seriousCount: number;
-  moderateCount: number;
-  minorCount: number;
-}
-
-export interface ReportEntry {
-  url: string;
-  timestamp: string;
-  violations: FormattedViolation[];
-}
-
 export interface FormattedViolation {
   id: string;
   impact: string;
   description: string;
-  helpUrl: string;
-  wcagCriteria: string[];
-  wcagLevel: string;
+  wcag: string[];
   nodes: NodeSummary[];
 }
 
 export interface NodeSummary {
   html: string;
+  target: string;
   failureSummary: string;
-  target: string[];
+}
+
+export interface ReportEntry {
+  url: string;
+  violations: FormattedViolation[];
+}
+
+export interface ReportSummary {
+  totalPages: number;
+  totalViolations: number;
+  pagesWithViolations: number;
 }
 
 export interface AuditReport {
   generatedAt: string;
   baseUrl: string;
-  pagesAudited: number;
-  totalViolations: number;
-  summaries: ViolationSummary[];
   entries: ReportEntry[];
+  summary: ReportSummary;
+}
+
+export type OutputFormat = 'json' | 'text' | 'csv';
+
+export interface ReporterOptions {
+  format: OutputFormat;
+  outputPath?: string;
+  filter?: import('./filter').FilterOptions;
+  sortByImpact?: boolean;
 }
