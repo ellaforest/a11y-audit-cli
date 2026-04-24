@@ -1,0 +1,12 @@
+# Typescript
+
+node_modules/
+coverage/
+npm-debug.log*
+*.log
+dist/
+.vscode/
+*.swp
+.next/
+.cache/
+Thumbs.db
